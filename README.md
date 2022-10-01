@@ -2,14 +2,14 @@
 
 ## Bootstrap
 ```
-npm install --save bootstrap 
+$ npm install --save bootstrap 
 ```
 ## Vue router
 ```
-npm install vue-router@4  
+$ npm install vue-router@4  
 ```
 ## Bootstrap - icons
 ```
-i bootstrap-icons  
+$ npm i bootstrap-icons  
 ```
 
