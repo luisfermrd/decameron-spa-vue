@@ -1,24 +1,15 @@
-# decameron-spa-vue
+# decameron-spa-vue (recursos instalados)
 
-## Project setup
+## Bootstrap
 ```
-yarn install
+npm install --save bootstrap 
 ```
-
-### Compiles and hot-reloads for development
+## Vue router
 ```
-yarn serve
+npm install vue-router@4  
 ```
-
-### Compiles and minifies for production
+## Bootstrap - icons
 ```
-yarn build
+i bootstrap-icons  
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
