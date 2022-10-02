@@ -6,9 +6,7 @@
           <h1 class="fs-3"><i class="bi bi-bank me-2"></i>Hoteles</h1>
         </div>
         <div class="col d-flex justify-content-end align-items-center">
-          <a href="hotel-create.html">
-            <button type="button" class="btn btn-success"><i class="bi bi-plus-lg"></i> Crear hotel</button>
-          </a>
+          <button @click="viewFormHotelCreate" type="button" class="btn btn-success"><i class="bi bi-plus-lg"></i> Crear hotel</button>
         </div>
       </div>
       <div class="table-responsive mt-3">

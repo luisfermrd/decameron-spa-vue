@@ -7,11 +7,13 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <router-link to="/" class="nav-item nav-link ms-3 active" aria-current="page" href="#">
-                                    <i class="bi bi-house-fill me-1"></i>Inicio</router-link>
+                                    <i class="bi bi-house-fill me-1"></i>Inicio
+                                </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link to="/hoteles" class="nav-item nav-link ms-3" aria-current="page" href="#">
-                                    <i class="bi bi-chevron-right me-1"></i>Hoteles</router-link>
+                                    <i class="bi bi-chevron-right me-1"></i>Hoteles
+                                </router-link>
                             </li>
                             <li class="nav-item">
                                 <p class="nav-link text-primary fw-bold  active"><i
@@ -31,47 +33,46 @@
                     <form class="row" method="POST" id="formulario" enctype="multipart/form-data">
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
-                                <label for="" class="form-label">Nombre</label>
-                                <input type="text" name="names" id="names" class="form-control">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input v-model="hotel.name" type="text" name="names" id="names" class="form-control">
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
-                                <label for="" class="form-label">NIT</label>
-                                <input type="text" name="nit" id="nit" class="form-control">
+                                <label for="nit" class="form-label">NIT</label>
+                                <input v-model="hotel.nit" type="text" name="nit" id="nit" class="form-control">
+                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.nit[0]}}</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
-                                <label for="" class="form-label">Dirección</label>
-                                <input type="text" name="direccion" id="direccion" class="form-control">
+                                <label  for="direccion" class="form-label">Dirección</label>
+                                <input v-model="hotel.address" type="text" name="direccion" id="direccion" class="form-control">
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
-                                <label for="" class="form-label">Número de habitaciones</label>
-                                <input type="number" name="habitaciones" id="habitaciones" class="form-control">
+                                <label for="nhabitaciones" class="form-label">Número de habitaciones</label>
+                                <input v-model="hotel.num_rooms" type="number" name="habitaciones" id="habitaciones" class="form-control">
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
-                            <label for="" class="form-label">Ciudad</label>
-                            <select name="ciudad" id="ciudad" class="form-control select-picker">
-                                <option value="" selected hidden></option>
-                                <option value="1">MONTERIA</option>
-                                <option value="2">BARRANQUILLA</option>
-                                <option value="3">MEDELLIN</option>
-                                <option value="4">BOGOTA</option>
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <select class="form-select" id="ciudad" v-model="hotel.city_id">
+                                <option v-for="ciudad in cities" :value="ciudad.id" :key="ciudad.id">{{ ciudad.name }}
+                                </option>
                             </select>
                         </div>
                         <div class="form-group d-flex justify-content-between">
-                            <a href="hoteles.html">
-                                <button type="button" id="btn_cancel" class="btn btn-danger row-3 mt-2"><i
-                                        class="bi bi-x-circle"></i>
-                                    Regresar</button>
-                            </a>
-                            <button type="submit" id="btn_save" class="btn btn-success row-3 mt-2"><i
+                            <router-link to="/hoteles" class="btn btn-danger row-3 mt-2" aria-current="page" href="#">
+                                <i class="bi bi-x-circle"></i>Regresar
+                            </router-link>
+                            <button @click="sendHotel" type="submit" id="btn_save" class="btn btn-success row-3 mt-2"><i
                                     class="bi bi-plus-circle"></i>
                                 Guardar</button>
+                        </div>
+                        <div v-if="info" class="alert alert-primary mt-3" role="alert">
+                            {{info}}
                         </div>
                     </form>
                 </div>
@@ -79,3 +80,54 @@
         </div>
     </article>
 </template>
+
+<script>
+import axios from 'axios'
+export default {
+    beforeMount() {
+        axios
+            .get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/cities')
+            .then(response => (this.cities = response.data))
+    },
+    data() {
+        return {
+            errores: {
+                nit: null
+            },
+            info: null,
+            cities: [],
+            hotel: {
+                name: null,
+                nit: null,
+                address: null,
+                num_rooms: null,
+                city_id: null
+            }
+        }
+    },
+    methods: {
+        sendHotel() {
+            axios({
+                method: 'post',
+                url: 'http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels',
+                data: this.hotel,
+                responseType: 'json',
+            })
+                .then(response => {
+                    this.info = response.data.message
+
+                    this.hotel.name = null
+                    this.hotel.nit = null
+                    this.hotel.address = null
+                    this.hotel.num_rooms = null
+                    this.hotel.city_id = null
+
+                })
+                .catch(error => {
+                    this.errores = error.response.data.errors
+
+                })
+        }
+    },
+}
+</script>

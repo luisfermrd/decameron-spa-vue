@@ -5,8 +5,6 @@
 * Julieth Cantero Garcia
 * Liana Bermudez Royo
 
-# Recursos instalados
-
 ## Project setup
 ```
 npm install
@@ -17,6 +15,7 @@ npm install
 npm run serve
 ```
 
+# Recursos instalados
 ## Bootstrap
 ```
 $ npm install --save bootstrap 
