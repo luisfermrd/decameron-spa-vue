@@ -30,11 +30,12 @@
                     <h1 class="fs-3"><i class="bi bi-bank me-2"></i>Crear un nuevo hotel</h1>
                 </div>
                 <div class="container p-4">
-                    <form class="row" method="POST" id="formulario" enctype="multipart/form-data">
+                    <div class="row">
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>
                                 <input v-model="hotel.name" type="text" name="names" id="names" class="form-control">
+                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.name[0]}}</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
@@ -46,14 +47,19 @@
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
-                                <label  for="direccion" class="form-label">Dirección</label>
-                                <input v-model="hotel.address" type="text" name="direccion" id="direccion" class="form-control">
+                                <label for="direccion" class="form-label">Dirección</label>
+                                <input v-model="hotel.address" type="text" name="direccion" id="direccion"
+                                    class="form-control">
+                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.address[0]}}</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
                                 <label for="nhabitaciones" class="form-label">Número de habitaciones</label>
-                                <input v-model="hotel.num_rooms" type="number" name="habitaciones" id="habitaciones" class="form-control">
+                                <input v-model="hotel.num_rooms" type="number" name="habitaciones" id="habitaciones"
+                                    class="form-control">
+                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.num_rooms[0]}}
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
@@ -62,6 +68,7 @@
                                 <option v-for="ciudad in cities" :value="ciudad.id" :key="ciudad.id">{{ ciudad.name }}
                                 </option>
                             </select>
+                            <div v-if="errores.name" style="color: red;" :role="alert">{{errores.city_id[0]}}</div>
                         </div>
                         <div class="form-group d-flex justify-content-between">
                             <router-link to="/hoteles" class="btn btn-danger row-3 mt-2" aria-current="page" href="#">
@@ -74,7 +81,7 @@
                         <div v-if="info" class="alert alert-primary mt-3" role="alert">
                             {{info}}
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
