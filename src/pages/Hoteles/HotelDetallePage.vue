@@ -32,36 +32,28 @@
                 <div class="mb-3">
                   <label for="" class="form-label">Nombre</label>
                   <input v-model="hotel.name" type="text" id="name" class="form-control">
-                    <div v-if="Array.isArray(errores.name)" class="text-danger">
-                        <p v-for="msg1 in errores.name" >{{ msg1 }}</p>
-                    </div>
+                  <div v-if="errores.name" class="text-danger" :role="alert">{{errores.name[0]}}</div>
                 </div>
               </div>
               <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                 <div class="mb-3">
                   <label for="" class="form-label">NIT</label>
                   <input v-model="hotel.nit" type="number" id="nit" class="form-control">
-                  <div v-if="Array.isArray(errores.nit)" class="text-danger">
-                        <p v-for="msg1 in errores.nit" >{{ msg1 }}</p>
-                    </div>
+                  <div v-if="errores.nit" class="text-danger" :role="alert">{{errores.nit[0]}}</div>
                 </div>
               </div>
               <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                 <div class="mb-3">
                   <label for="" class="form-label">Dirección</label>
                   <input v-model="hotel.address" type="text" id="address" class="form-control">
-                    <div v-if="Array.isArray(errores.address)" class="text-danger">
-                        <p v-for="msg1 in errores.address" >{{ msg1 }}</p>
-                    </div>
+                  <div v-if="errores.address" class="text-danger" :role="alert">{{errores.address[0]}}</div>
                 </div>
               </div>
               <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                 <div class="mb-3">
                   <label for="" class="form-label">Número de habitaciones</label>
                   <input v-model="hotel.num_rooms" type="number" id="num_rooms" class="form-control">
-                    <div v-if="Array.isArray(errores.num_rooms)" class="text-danger">
-                        <p v-for="msg1 in errores.num_rooms" >{{ msg1 }}</p>
-                    </div>
+                  <div v-if="errores.num_rooms" class="text-danger" :role="alert">{{errores.num_rooms[0]}}</div>
                 </div>
               </div>
               <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
@@ -69,9 +61,7 @@
                 <select v-model="hotel.city_id" id="city_id" class="form-control select-picker">
                   <option v-for="city in cities" :value="city.id" :key="city.id">{{city.name}}</option>
                 </select>
-                <div v-if="Array.isArray(errores.city_id)" class="text-danger">
-                        <p v-for="msg1 in errores.city_id" >{{ msg1 }}</p>
-                </div>
+                <div v-if="errores.city_id" class="text-danger" :role="alert">{{errores.city_id[0]}}</div>
               </div>
 
                 <div v-if="info" class="alert alert-primary" role="alert">
@@ -118,7 +108,7 @@ export default {
     },
     data() {
         return {
-            errores: Object,
+            errores: {},
             info: null,
             cities: Object,
             ocultar: null,
@@ -163,22 +153,24 @@ export default {
                 data: this.hotel,
                 responseType: 'json', 
             }) 
-            .then(response => {
-                
+            .then(response => { 
                 this.info = response.data.message
-                this.errores = Object
-                // this.hotel = response.data.data
+                this.errores = {}
             })
             .catch(error => {
                 this.errores = error.response.data.errors
                 this.info = null
-                // this.message = error.response.data.message
             })
+
+          setTimeout(() => {
+            this.info = null
+            this.errores = {}
+          }, 5000)
             
         },
         
         eliminar(id) {
-            this.errores = []
+            this.errores = {}
             if (confirm('¿Esta seguro que desea eliminar este hotel?')) {
                 axios({
                     method: 'delete',
@@ -196,6 +188,11 @@ export default {
                     this.info = null
                 })       
             }
+
+            setTimeout(() => {
+              this.info = null
+              this.errores = {}
+            }, 5000)
         }
     }
     

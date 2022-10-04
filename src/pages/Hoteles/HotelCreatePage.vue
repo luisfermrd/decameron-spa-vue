@@ -58,8 +58,7 @@
                                 <label for="nhabitaciones" class="form-label">Número de habitaciones</label>
                                 <input v-model="hotel.num_rooms" type="number" name="habitaciones" id="habitaciones"
                                     class="form-control">
-                                <div v-if="errores.num_rooms" class="text-danger" :role="alert">{{errores.num_rooms[0]}}
-                                </div>
+                                <div v-if="errores.num_rooms" class="text-danger" :role="alert">{{errores.num_rooms[0]}}</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
@@ -135,6 +134,11 @@ export default {
                     this.errores = error.response.data.errors
 
                 })
+
+            setTimeout(() => {
+                this.info = null
+                this.errores = {}
+            }, 5000)
         }
     },
 }
