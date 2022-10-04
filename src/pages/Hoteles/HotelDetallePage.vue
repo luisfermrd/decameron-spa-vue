@@ -6,12 +6,10 @@
           <div class="container-fluid">
             <div class="navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="index.html"><i class="bi bi-house-fill me-1"></i>Inicio</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="hoteles.html"><i class="bi bi-chevron-right me-1"></i>Hoteles</a>
-                </li>
+                <router-link to="/" class="nav-item nav-link" aria-current="page" href="#">
+                    <i class="bi bi-house-fill me-1"></i> Inicio</router-link>
+                <router-link to="/hoteles" class="nav-item nav-link" aria-current="page" href="#">
+                    <i class="bi bi-chevron-right me-1"></i> Hoteles</router-link>
                 <li class="nav-item">
                   <p class="nav-link text-primary fw-bold  active"><i class="bi bi-chevron-right me-1"></i>Actualizar
                     Datos de Hotel</p>
@@ -146,7 +144,7 @@ export default {
             .then(response => ( 
                 this.hotel = response.data.data,
                 this.success = response.data.success,
-                (this.success)?document.getElementById("notId").element.classList.remove("d-none"):""
+                (!this.success)?document.getElementById("notId").classList.remove("d-none"):""
                 ))
 
         },
