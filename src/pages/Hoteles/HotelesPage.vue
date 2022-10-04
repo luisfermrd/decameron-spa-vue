@@ -61,10 +61,14 @@ export default {
   },
   methods: {
     viewFormHotelCreate() {
-      this.$router.push({ name: 'HotelCreatePage' })
+      this.$router.push({ name: 'HotelCreatePage'})
     },
     viewHotel(id) {
-      alert(id)
+      this.$router.push({name: 'HotelDetallePage',
+                          params: { 
+                            id: id
+                          }
+      })
     }
   }
 }
