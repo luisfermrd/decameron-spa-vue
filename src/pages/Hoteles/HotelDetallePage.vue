@@ -7,12 +7,15 @@
             <div class="navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <router-link to="/" class="nav-item nav-link" aria-current="page" href="#">
-                    <i class="bi bi-house-fill me-1"></i> Inicio</router-link>
+                    <i class="bi bi-house-fill me-1"></i> Inicio
+                </router-link>
                 <router-link to="/hoteles" class="nav-item nav-link" aria-current="page" href="#">
-                    <i class="bi bi-chevron-right me-1"></i> Hoteles</router-link>
+                    <i class="bi bi-chevron-right me-1"></i> Hoteles
+                </router-link>
                 <li class="nav-item">
-                  <p class="nav-link text-primary fw-bold  active"><i class="bi bi-chevron-right me-1"></i>Actualizar
-                    Datos de Hotel</p>
+                    <p class="nav-link text-primary fw-bold  active"><i class="bi bi-chevron-right me-1"></i>Actualizar
+                        Datos de Hotel
+                    </p>
                 </li>
               </ul>
             </div>
@@ -21,7 +24,7 @@
 
         <div class="row">
           <div class="col ms-3">
-            <h1 class="fs-3"><i class="bi bi-bank me-2"></i>Hotel</h1>
+            <h1 class="fs-3"><i class="bi bi-bank me-2"></i> Hotel</h1>
           </div>
           <div class="container p-4">
             <div class="row" method="POST" id="formulario" enctype="multipart/form-data">

@@ -16,9 +16,9 @@
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <p class="nav-link text-primary fw-bold  active"><i
-                                        class="bi bi-chevron-right me-1"></i>Crear nuevo
-                                    hotel</p>
+                                <p class="nav-link text-primary fw-bold  active">
+                                    <i class="bi bi-chevron-right me-1"></i>Crear nuevo hotel
+                                </p>
                             </li>
                         </ul>
                     </div>
@@ -35,14 +35,14 @@
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>
                                 <input v-model="hotel.name" type="text" name="names" id="names" class="form-control">
-                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.name[0]}}</div>
+                                <div v-if="errores.name" class="text-danger" :role="alert">{{errores.name[0]}}</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
                             <div class="mb-3">
                                 <label for="nit" class="form-label">NIT</label>
                                 <input v-model="hotel.nit" type="text" name="nit" id="nit" class="form-control">
-                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.nit[0]}}</div>
+                                <div v-if="errores.nit" class="text-danger" :role="alert">{{errores.nit[0]}}</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
@@ -50,7 +50,7 @@
                                 <label for="direccion" class="form-label">Dirección</label>
                                 <input v-model="hotel.address" type="text" name="direccion" id="direccion"
                                     class="form-control">
-                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.address[0]}}</div>
+                                <div v-if="errores.address" class="text-danger" :role="alert">{{errores.address[0]}}</div>
                             </div>
                         </div>
                         <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12 mt-2">
@@ -58,7 +58,7 @@
                                 <label for="nhabitaciones" class="form-label">Número de habitaciones</label>
                                 <input v-model="hotel.num_rooms" type="number" name="habitaciones" id="habitaciones"
                                     class="form-control">
-                                <div v-if="errores.name" style="color: red;" :role="alert">{{errores.num_rooms[0]}}
+                                <div v-if="errores.num_rooms" class="text-danger" :role="alert">{{errores.num_rooms[0]}}
                                 </div>
                             </div>
                         </div>
@@ -68,15 +68,15 @@
                                 <option v-for="ciudad in cities" :value="ciudad.id" :key="ciudad.id">{{ ciudad.name }}
                                 </option>
                             </select>
-                            <div v-if="errores.name" style="color: red;" :role="alert">{{errores.city_id[0]}}</div>
+                            <div v-if="errores.city_id" class="text-danger" :role="alert">{{errores.city_id[0]}}</div>
                         </div>
                         <div class="form-group d-flex justify-content-between">
                             <router-link to="/hoteles" class="btn btn-danger row-3 mt-2" aria-current="page" href="#">
-                                <i class="bi bi-x-circle"></i>Regresar
+                                <i class="bi bi-x-circle"></i> Regresar
                             </router-link>
                             <button @click="sendHotel" type="submit" id="btn_save" class="btn btn-success row-3 mt-2"><i
-                                    class="bi bi-plus-circle"></i>
-                                Guardar</button>
+                                    class="bi bi-plus-circle"></i> Guardar
+                            </button>
                         </div>
                         <div v-if="info" class="alert alert-primary mt-3" role="alert">
                             {{info}}
@@ -98,9 +98,7 @@ export default {
     },
     data() {
         return {
-            errores: {
-                nit: null
-            },
+            errores: {},
             info: null,
             cities: [],
             hotel: {
@@ -114,6 +112,9 @@ export default {
     },
     methods: {
         sendHotel() {
+            this.errores = {}
+            this.info = null
+            
             axios({
                 method: 'post',
                 url: 'http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels',
