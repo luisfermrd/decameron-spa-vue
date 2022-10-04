@@ -32,12 +32,15 @@
               <td> {{hotel.address}} </td>
               <td> {{hotel.city.name}} </td>
               <td class="text-center"> {{hotel.num_rooms}} </td>
-              <td><button type="button" @click="viewHotel(hotel.id)"
-                  class="btn btn-warning rounded-5 text-light me-3">Detalle</button></td>
               <td>
-                <router-link to="/habitaciones" class="btn btn-primary rounded-5" aria-current="page" href="#">
+                <button type="button" @click="viewHotel(hotel.id)" class="btn btn-warning rounded-5 text-light me-3">
+                  Detalle
+                </button>
+              </td>
+              <td>
+                <button type="button" @click="detailHotel(hotel.id)" class="btn btn-primary rounded-5">
                   Habitaciones
-                </router-link>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -65,6 +68,13 @@ export default {
     },
     viewHotel(id) {
       this.$router.push({name: 'HotelDetallePage',
+                          params: { 
+                            id: id
+                          }
+      })
+    },
+    detailHotel(id) {
+      this.$router.push({name: 'HabitacionPage',
                           params: { 
                             id: id
                           }

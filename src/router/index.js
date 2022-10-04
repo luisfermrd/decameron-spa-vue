@@ -17,10 +17,10 @@ const routes = [
   {path: '/hoteles', name:'HotelesPage', component: HotelesPage},
   {path: '/hotelCreate', name:'HotelCreatePage', component: HotelCreatePage},
   {path: '/hotelDetalle/:id', name:'HotelDetallePage', component: HotelDetallePage},
-  {path: '/habitaciones', name:'HabitacionPage', component: HabitacionPage},
+  {path: '/habitaciones/:id', name:'HabitacionPage', component: HabitacionPage},
   {path: '/habitacionesTipo',  name:'HabTipoPage',  component: HabTipoPage},
-  {path: '/habitacionCreate', name:'HabCreatePage', component: HabCreatePage},
-  {path: '/habitacionesEditar', name:'HabEditarPage', component: HabEditarPage},
+  {path: '/habitacionCreate/:id', name:'HabCreatePage', component: HabCreatePage},
+  {path: '/habitacionesEditar/:id', name:'HabEditarPage', component: HabEditarPage},
   {path: '/acomodaciones', name:'AcomodacionesPage', component: AcomodacionesPage}
   
 ]

@@ -30,14 +30,14 @@
                     <div class="col d-flex">
                         <i class="bi bi-bank me-2 fs-1"></i>
                         <div>
-                            <h1 class="fs-3">GRAN HOTEL 2</h1>
-                            <h9>Numero de habitaciones: 55</h9>
+                            <h1 class="fs-3">{{this.hotel.name}}</h1>
+                            <h9>Numero de habitaciones: {{this.hotel.num_rooms}}</h9>
                         </div>
                     </div>
                     <div class="col d-flex justify-content-end align-items-center">
-                        <button @click="viewFormHabitacionCreate" type="button" class="btn btn-success"><i
-                                class="bi bi-plus-lg"></i>
-                            Crear habitación</button>
+                        <button @click="viewFormHabitacionCreate(this.hotel.id)" type="button" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i> Crear habitación
+                        </button>
                     </div>
                 </div>
                 <div class="table-responsive mt-3">
@@ -51,26 +51,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="">
-                                <td scope="row">JUNIOR</td>
-                                <td>TRIPLE</td>
-                                <td>10</td>
+                            <tr class="" v-for="habitacion in habitaciones" :key="habitacion.id">
+                                <td scope="row">{{habitacion.type.name}}</td>
+                                <td >{{habitacion.accommodation.name}}</td>
+                                <td >{{habitacion.quantity}}</td>
                                 <td class="d-flex justify-content-center">
-                                    <router-link to="/habitacionesEditar" class="btn btn-warning rounded-5 text-light me-3"
-                                        aria-current="page" href="#">Editar</router-link>
-                                    <button type="button" class="btn btn-danger rounded-5">Eliminar</button>
+                                    <button @click="editRoom(habitacion.id)" type="button" class="btn btn-warning rounded-5 text-light me-3">
+                                        Editar
+                                    </button>
+                                    <button @click="destroyRoom(habitacion.id)" type="button" class="btn btn-danger rounded-5">
+                                        Eliminar
+                                    </button>
                                 </td>
                                 <td></td>
-                            </tr>
-                            <tr class="">
-                                <td scope="row">ESTANDAR</td>
-                                <td>SENCILLA</td>
-                                <td>20</td>
-                                <td class="d-flex justify-content-center">
-                                    <router-link to="/habitacionesEditar" class="btn btn-warning rounded-5 text-light me-3"
-                                        aria-current="page" href="#">Editar</router-link>
-                                    <button type="button" class="btn btn-danger rounded-5">Eliminar</button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -84,17 +77,50 @@ import axios from 'axios'
 
 export default {
     beforeMount() {
-        axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels').then(response => (this.hoteles = response.data.data))
+        axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels/'+this.$route.params.id)
+        .then(response => (this.hotel = response.data.data))
+
+        axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/rooms/'+this.$route.params.id)
+        .then(response => (this.habitaciones = response.data.data))
     },
     data() {
         return {
-            hoteles: []
+            hotel: [],
+            habitaciones: [],
+            info: null,
+            errores: {},
+            success: false
         }
     },
     methods: {
-        viewFormHabitacionCreate() {
-            this.$router.push({ name: 'HabCreatePage' })
-        }
+        viewFormHabitacionCreate(id) {
+            this.$router.push({ name: 'HabCreatePage',
+            params: id })
+        },
+        editRoom(id) {
+            this.$router.push({ name: 'HabEditarPage',
+            params: id })
+        },
+        destroyRoom(id) {
+            this.errores = {}
+            if (confirm('¿Esta seguro que desea eliminar este habitacion?')) {
+                axios({
+                    method: 'delete',
+                    url: 'http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/rooms/'+id,
+                    responseType: 'json', 
+                }) 
+                .then(response => {  
+                    this.success = response.data.success
+                    axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/rooms/'+this.$route.params.id)
+                            .then(response => (this.habitaciones = response.data.data))
+                })
+                .catch(error => {
+                    this.errores = error.response.data.errors
+                    this.info = null
+                    this.success = false
+                })       
+            }
+        },
     }
 }
 </script>

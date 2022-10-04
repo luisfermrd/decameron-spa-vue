@@ -16,14 +16,14 @@
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/habitaciones" class="nav-item nav-link ms-3" aria-current="page"
-                                    href="#">
+                                <a @click="regresar(this.$route.params.id)" class="nav-item nav-link ms-3" href="#">
                                     <i class="bi bi-chevron-right me-1"></i>Hotel
-                                </router-link>
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <p class="nav-link text-primary fw-bold  active"><i
-                                        class="bi bi-chevron-right me-1"></i>Nueva habitaciones</p>
+                                <p class="nav-link text-primary fw-bold  active">
+                                    <i class="bi bi-chevron-right me-1"></i> Nueva habitaciones
+                                </p>
                             </li>
                         </ul>
                     </div>
@@ -72,12 +72,12 @@
                         </div>
 
                         <div class="form-group d-flex justify-content-between">
-                            <button type="submit" id="btn_save" class="btn btn-success row-3 mt-2"><i
-                                    class="bi bi-plus-circle"></i> Guardar</button>
-                            <router-link to="/habitaciones" class="btn btn-danger row-3 mt-2" aria-current="page"
-                                href="#">
-                                <i class="bi bi-x-circle"></i>Regresar
-                            </router-link>
+                            <button type="submit" id="btn_save" class="btn btn-success row-3 mt-2">
+                                <i class="bi bi-plus-circle"></i> Guardar
+                            </button>
+                            <button @click="regresar(this.$route.params.id)" class="btn btn-danger row-3 mt-2">
+                                <i class="bi bi-x-circle"></i> Regresar
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -85,3 +85,28 @@
         </div>
     </article>
 </template>
+
+<script>
+    //import axios from 'axios'
+    
+    export default {
+        beforeMount() {
+            //axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/rooms/'+this.$route.params.id)
+            //.then(response => (this.habitacion = response.data.data))
+        },
+        data() {
+            return {
+                habitacion: [],
+                info: null,
+                errores: {},
+                success: false
+            }
+        },
+        methods: {
+            regresar(id) {
+                this.$router.push({ name: 'HabitacionPage',
+                params: id })
+            },
+        }
+    }
+    </script>
