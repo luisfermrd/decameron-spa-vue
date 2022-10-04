@@ -1,7 +1,8 @@
 <template>
     <article class="shadow p-4 mb-5 bg-body rounded">
         <div class="pe-5 ps-5 pt-3">
-            <h1 class="fs-3"><img src="@/assets/habitacion.png" width="50" height="50" alt=""> Tipos de habitaciones</h1>
+            <h1 class="fs-3"><img src="@/assets/habitacion.png" width="50" height="50" alt=""> Tipos de habitaciones
+            </h1>
         </div>
         <div class="pe-5 ps-5 pt-2">
             <table class="table table-striped table-hover">
@@ -25,7 +26,27 @@
                         <td>SUITE</td>
                     </tr>
                 </tbody>
+                <tr v-for="hotel in habitaciones " :key="habitaciones.id" class="">
+                    <td> {{habitaciones.id}} </td>
+                    <td scope="row"> {{habitaciones.nit}} </td>
+                    <td> {{habitaciones.name}} </td>
+                    <td><button type="button" @click="viewhabitaciones(habitaciones.id)"
+                            class="btn btn-warning rounded-5 text-light me-3">Detalle</button></td>
+                </tr>
             </table>
         </div>
     </article>
 </template>
+<script>
+import axios from 'axios'
+
+export default {
+    beforeMount() {
+        axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/habitaciones-types').then(response => (this.hoteles = response.data.data))
+    },
+    data() {
+        return {
+            habitaciones: []
+        }
+    }
+}
