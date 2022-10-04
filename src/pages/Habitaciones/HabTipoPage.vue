@@ -13,40 +13,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>JUNIOR</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>ESTANDAR</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>SUITE</td>
+                    <tr v-for="habitaciones in habitaciones " :key="habitaciones.id" class="">
+                        <td> {{habitaciones.id}} </td>
+                        <td> {{habitaciones.name}} </td>
                     </tr>
                 </tbody>
-                <tr v-for="hotel in habitaciones " :key="habitaciones.id" class="">
-                    <td> {{habitaciones.id}} </td>
-                    <td scope="row"> {{habitaciones.nit}} </td>
-                    <td> {{habitaciones.name}} </td>
-                    <td><button type="button" @click="viewhabitaciones(habitaciones.id)"
-                            class="btn btn-warning rounded-5 text-light me-3">Detalle</button></td>
-                </tr>
+                
             </table>
         </div>
     </article>
 </template>
 <script>
-import axios from 'axios'
-
-export default {
-    beforeMount() {
-        axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/habitaciones-types').then(response => (this.hoteles = response.data.data))
-    },
-    data() {
-        return {
-            habitaciones: []
+    import axios from 'axios'
+    
+    export default {
+        beforeMount() {
+            axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/room-types').then(response => (this.habitaciones = response.data))
+        },
+        data() {
+            return {
+                habitaciones: []
+            }
         }
     }
-}
+</script>
