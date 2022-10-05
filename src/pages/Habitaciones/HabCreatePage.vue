@@ -69,23 +69,19 @@
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-2">
                             <div class="mb-3">
                                 <label for="" class="form-label">Cantidad</label>
-                                <input type="number" name="cantidad" id="cantidad" class="form-control">
+                                <input v-model="room.quantity" type="number" name="cantidad" id="cantidad"
+                                    class="form-control">
                                 <div v-if="errores.quantity" class="text-danger">
                                     <div v-for="msg in errores.quantity">{{msg}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div v-if="info" class="ml-5 mr-5">
-                            <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
-                                role="alert">
-                                {{info}}
-                            </div>
+                        <div v-if="info" class="alert alert-success" role="alert">
+                            {{info}}
                         </div>
 
-                        <div v-if="errores.simple" class="ml-5 mr-5">
-                            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-                                {{errores.simple}}
-                            </div>
+                        <div v-if="errores.simple" class="alert alert-danger" role="alert">
+                            {{errores.simple}}
                         </div>
 
                         <div class="form-group d-flex justify-content-between">
@@ -163,6 +159,10 @@ export default {
                 .then(response => {
                     this.info = response.data.message
                     this.errores = []
+
+                    this.room.room_type_id = null
+                    this.room.accommodation_id = null
+                    this.room.quantity = null
                 })
             setTimeout(() => {
                 this.info = null
