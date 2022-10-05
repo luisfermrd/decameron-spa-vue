@@ -145,7 +145,9 @@ export default {
         regresar(id) {
             this.$router.push({
                 name: 'HabitacionPage',
-                params: id
+                params:{
+                    id: id
+                }
             })
         },
         crearHabitacion() {
