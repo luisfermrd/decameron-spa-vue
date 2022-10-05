@@ -118,9 +118,6 @@ export default {
     data() {
         return {
             habitacion: [],
-            // info: null,
-            // errores: {},
-            // success: false,
             hotel: {
                 name: null,
                 num_rooms: null
@@ -141,7 +138,7 @@ export default {
         regresar(id) {
             this.$router.push({
                 name: 'HabitacionPage',
-                params:{
+                params: {
                     id: id
                 }
             })
@@ -162,9 +159,6 @@ export default {
                     this.info = response.data.message
                     this.errores = []
 
-                    this.room.room_type_id = null
-                    this.room.accommodation_id = null
-                    this.room.quantity = null
                 })
             setTimeout(() => {
                 this.info = null
