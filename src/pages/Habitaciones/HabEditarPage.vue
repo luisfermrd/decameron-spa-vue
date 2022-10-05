@@ -52,6 +52,7 @@
                                     {{ tipoHab.name }}
                                 </option>
                             </select>
+                            <div v-if="errores.room_type_id" class="text-danger" :role="alert">{{errores.room_type_id[0]}}</div>
                         </div>
 
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-2">
@@ -61,6 +62,7 @@
                                     {{ acomodaciones.name }}
                                 </option>
                             </select>
+                            <div v-if="errores.accommodation_id" class="text-danger" :role="alert">{{errores.accommodation_id[0]}}</div>
                         </div>
 
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-2">
