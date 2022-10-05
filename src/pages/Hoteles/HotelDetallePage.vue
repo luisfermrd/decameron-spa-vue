@@ -64,7 +64,7 @@
                 <div v-if="errores.city_id" class="text-danger" :role="alert">{{errores.city_id[0]}}</div>
               </div>
 
-                <div v-if="info" class="alert alert-primary" role="alert">
+                <div v-if="info" class="alert alert-success" role="alert">
                     {{info}}
                 </div>
 

@@ -95,15 +95,21 @@ export default {
     methods: {
         viewFormHabitacionCreate(id) {
             this.$router.push({ name: 'HabCreatePage',
-            params: id })
+                params: {
+                    id: id
+                } 
+            })
         },
         editRoom(id) {
             this.$router.push({ name: 'HabEditarPage',
-            params: id })
+                params: {
+                    id: id
+                }
+            })
         },
         destroyRoom(id) {
             this.errores = {}
-            if (confirm('¿Esta seguro que desea eliminar este habitacion?')) {
+            if (confirm('¿Esta seguro que desea eliminar esta habitacion?')) {
                 axios({
                     method: 'delete',
                     url: 'http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/rooms/'+id,
