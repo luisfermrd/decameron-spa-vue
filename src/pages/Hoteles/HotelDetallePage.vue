@@ -65,7 +65,7 @@
               </div>
 
                 <div v-if="info" class="alert alert-success" role="alert">
-                    {{info}}
+                    {{info}} 
                 </div>
 
                 <div v-if="errores.simple" class="alert alert-danger" role="alert">

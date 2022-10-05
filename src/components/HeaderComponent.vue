@@ -9,14 +9,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav">
-                    <router-link to="/" class="nav-item nav-link ms-3 active" aria-current="page" href="#">Inicio
+                    <router-link to="/" class="nav-item nav-link ms-3 active" aria-current="page" href="#">
+                        Inicio
                     </router-link>
-                    <router-link to="/hoteles" class="nav-item nav-link ms-3" aria-current="page" href="#">Hoteles
+                    <router-link to="/hoteles" class="nav-item nav-link ms-3" aria-current="page" href="#">
+                        Hoteles
                     </router-link>
                     <router-link to="/habitacionesTipo" class="nav-item nav-link ms-3" aria-current="page" href="#">
-                        Tipos de habitaciones</router-link>
+                        Tipos de habitaciones
+                    </router-link>
                     <router-link to="/acomodaciones" class="nav-item nav-link ms-3" aria-current="page" href="#">
-                        Acomodaciones</router-link>
+                        Acomodaciones
+                    </router-link>
                 </div>
             </div>
         </div>

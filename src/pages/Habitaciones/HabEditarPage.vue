@@ -1,6 +1,6 @@
 <template>
     <article class="shadow p-4 mb-5 bg-body rounded">
-        <div class="p-4">
+        <div v-if="success" class="p-4">
             <nav class="navbar navbar-expand-lg bg-white">
                 <div class="container-fluid">
                     <div class="navbar-collapse" id="navbarNav">
@@ -92,6 +92,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="p-4 d-none" id="notId">
+            <div class="alert alert-warning" role="alert">
+                El id ingresado no se encuentra registrado
+            </div>
+        </div>
     </article>
 </template>
 
@@ -101,7 +107,10 @@
     export default {
         beforeMount() {
             axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/rooms/show/'+this.$route.params.id)
-            .then(response => (this.habitacion = response.data.data))
+            .then(response => (this.habitacion = response.data.data,
+                this.success = response.data.success,
+                (response.data.data==null)?document.getElementById("notId").classList.remove("d-none"):""
+                ))
 
             axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/accommodation-types')
             .then(response => (this.acomodaciones = response.data))

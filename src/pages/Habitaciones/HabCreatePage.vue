@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/require-v-for-key -->
 <template>
     <article class="shadow p-4 mb-5 bg-body rounded">
-        <div class="p-4">
+        <div v-if="success" class="p-4">
             <nav class="navbar navbar-expand-lg bg-white">
                 <div class="container-fluid">
                     <div class="navbar-collapse" id="navbarNav">
@@ -97,6 +97,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="p-4 d-none" id="notId">
+            <div class="alert alert-warning" role="alert">
+                El id ingresado no se encuentra registrado
+            </div>
+        </div>
     </article>
 </template>
 
@@ -107,7 +113,11 @@ export default {
     beforeMount() {
         // Obtener datos de hotel
         axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels/' + this.$route.params.id)
-            .then(response => (this.hotel = response.data.data))
+            .then(response => (
+                this.hotel = response.data.data,
+                this.success = response.data.success,
+                (!this.success)?document.getElementById("notId").classList.remove("d-none"):""
+                ))
         // Get tipos de habitaciones
         axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/room-types')
             .then(response => (this.room_types = response.data))
@@ -132,6 +142,7 @@ export default {
             info: null,
             room_types: [],
             accommodation_types: [],
+            success: false,
         }
     },
     methods: {
