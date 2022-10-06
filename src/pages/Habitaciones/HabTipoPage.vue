@@ -13,6 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!--Por cada habitacion de agrega una fila-->
                     <tr v-for="habitaciones in habitaciones " :key="habitaciones.id" class="">
                         <td> {{habitaciones.id}} </td>
                         <td> {{habitaciones.name}} </td>
@@ -24,11 +25,15 @@
     </article>
 </template>
 <script>
+    //Importamos la libreria de axios
     import axios from 'axios'
     
     export default {
+        //Antes de que se ejecute
         beforeMount() {
-            axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/room-types').then(response => (this.habitaciones = response.data))
+            //Obtiene el tipo de habitaciones
+            axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/room-types')
+            .then(response => (this.habitaciones = response.data))
         },
         data() {
             return {

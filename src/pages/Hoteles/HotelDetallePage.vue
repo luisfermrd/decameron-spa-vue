@@ -1,7 +1,9 @@
 <!-- eslint-disable vue/require-v-for-key -->
 <template>
     <article class="shadow p-4 mb-5 bg-body rounded">
+      <!--Si se obtiene un hotel por medio del id asignada, se mostrara la informacion del hotel-->
       <div v-if="success" class="p-4">
+        <!--Menu de navegacion-->
         <nav class="navbar navbar-expand-lg bg-white">
           <div class="container-fluid">
             <div class="navbar-collapse" id="navbarNav">
@@ -86,6 +88,7 @@
         </div>
       </div>
 
+      <!--Se muestra en caso de que el id del hotel pasado por parametro no se encuentre-->
       <div class="p-4 d-none" id="notId">
         <div class="alert alert-warning" role="alert">
            El id ingresado no se encuentra registrado
@@ -95,11 +98,13 @@
 </template>
 
 <script>
-
+//importamos axios
 import axios from 'axios';
 
 export default {
+  //Antes de que se ejecute
     beforeMount() {
+      //Se obtienen los hoteles
         this.getHotel()
     },
     props: {
@@ -127,23 +132,28 @@ export default {
         }
     },
     methods: {
-        
+        //Metodo para obtener los hoteles
         getHotel() {
+            //Se obtienen las ciudades
             axios
                 .get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/cities')
                 .then(response => ( this.cities = response.data ))
             
+            //Se obtiene los hoteles
             axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels/'+this.$route.params.id)
             .then(response => ( 
                 this.hotel = response.data.data,
                 this.success = response.data.success,
+                //Si no se obtiene un hotel por id dado, muestra una advertencia
                 (!this.success)?document.getElementById("notId").classList.remove("d-none"):""
                 ))
 
         },
+        //Metodo para cargar el componente de hoteles
         viewHotelesPage() {
             this.$router.push({ name: 'HotelesPage'})
         },
+        //Metodo para actualizar la informacion del hotel
         actualizar() {
             this.error = false
             this.info = false
@@ -162,15 +172,17 @@ export default {
                 this.info = null
             })
 
+          //Despues de 5 segundos se quitan los errores y mensajes de la vista
           setTimeout(() => {
             this.info = null
             this.errores = {}
           }, 5000)
             
         },
-        
+        //Metodo para eliminar un hotel
         eliminar(id) {
             this.errores = {}
+            //Confirma que se quiera eliminar el hotel
             if (confirm('¿Esta seguro que desea eliminar este hotel?')) {
                 axios({
                     method: 'delete',
@@ -188,7 +200,7 @@ export default {
                     this.info = null
                 })       
             }
-
+            //Despues de 5 segundos se quitan los errores y mensajes de la vista
             setTimeout(() => {
               this.info = null
               this.errores = {}

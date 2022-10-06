@@ -6,6 +6,7 @@
           <h1 class="fs-3"><i class="bi bi-bank me-2"></i>Hoteles</h1>
         </div>
         <div class="col d-flex justify-content-end align-items-center">
+          <!--Boton para crear un nuevo hotel-->
           <button @click="viewFormHotelCreate" type="button" class="btn btn-success"><i class="bi bi-plus-lg"></i> Crear
             hotel</button>
         </div>
@@ -25,6 +26,7 @@
             </tr>
           </thead>
           <tbody>
+            <!--Por cada hotel se agrega una fila-->
             <tr v-for="hotel in hoteles" :key="hotel.id" class="">
               <td> {{hotel.id}} </td>
               <td scope="row"> {{hotel.nit}} </td>
@@ -51,11 +53,15 @@
 </template>
 
 <script>
+  //importamos axios
 import axios from 'axios'
 
 export default {
+  //antes de que se ejecute
   beforeMount() {
-    axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels').then(response => (this.hoteles = response.data.data))
+    //obtenemos los hoteles
+    axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/hotels')
+    .then(response => (this.hoteles = response.data.data))
   },
   data() {
     return {
@@ -63,9 +69,11 @@ export default {
     }
   },
   methods: {
+    //Metodo para abrir el componente de crear un nuevo hotel
     viewFormHotelCreate() {
       this.$router.push({ name: 'HotelCreatePage'})
     },
+    //Metodo para abrir el componente de detalles de un hotel
     viewHotel(id) {
       this.$router.push({name: 'HotelDetallePage',
                           params: { 
@@ -73,6 +81,7 @@ export default {
                           }
       })
     },
+    //Metodo para abrir el componente de las habitaciones de un hotel
     detailHotel(id) {
       this.$router.push({name: 'HabitacionPage',
                           params: { 

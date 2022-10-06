@@ -12,9 +12,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="acomodaciones in acomodaciones" :key="acomodaciones.id" class="">
-                        <td> {{acomodaciones.id}} </td>
-                        <td> {{acomodaciones.name}} </td>
+                    <!--Por cada acomodacion se crea una fila-->
+                    <tr v-for="acomodacion in acomodaciones" :key="acomodacion.id" class="">
+                        <td> {{acomodacion.id}} </td>
+                        <td> {{acomodacion.name}} </td>
                     </tr>
                 </tbody>
             </table>
@@ -22,10 +23,14 @@
     </article>
 </template>
 <script>
+    //importamos la libreria de axios
     import axios from 'axios'
     export default {
+        //Antes de que se ejecute
         beforeMount() {
-            axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/accommodation-types').then(response => (this.acomodaciones = response.data))
+            //Obtenemos las acomodaciones
+            axios.get('http://ec2-44-201-108-206.compute-1.amazonaws.com/decameron/api/accommodation-types')
+            .then(response => (this.acomodaciones = response.data))
         },
         data() {
             return {
